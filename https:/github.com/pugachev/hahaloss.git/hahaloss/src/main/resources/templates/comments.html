@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Laravel BBS - Laravelで作る掲示板のデモアプリ</title>
+    <meta name="description" content="このサイトは、Laravelで掲示板を作成するチュートリアルのデモアプリです。"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+</head>
+<body>
+<div layout:fragment="content" class="col-sm-12">
+    <div>
+	      <div class="container mt-4">
+	        <div class="border p-4">
+	            <div class="mb-4 text-right">
+	                <a class="btn btn-primary" th:href="@{/hahaloss/}">
+	                    一覧に戻る
+	                </a>
+	            </div>
+
+
+				<div class="mb-3" th:each="post : ${posts}">
+		            <h1 class="p-3 mb-2 bg-info text-white" th:text="${post.title}">
+		                投稿タイトルがきます
+		            </h1>
+
+		            <p class="mb-4" th:text="${post.body}">
+		                投稿内容がきます
+		            </p>
+	            </div>
+	            <br/>
+	            <h2 class="h5 mb-5">
+		        	コメント
+		        </h2>
+	            <section th:each="comment : ${comments}">
+
+	                <div class="form-group">
+	                   <label for="body" th:text="${comment.body}">
+	                      コメントが来ます
+	                   </label>
+					</div>
+
+	                <div class="form-group">
+	                   <label for="updated_at" th:text="${comment.updated_at}" class="text-left bg-light text-dark">
+	                      コメント投稿日時がきます
+	                   </label>
+					</div>
+	                <br/>
+	            </section>
+	            <div th:each="post : ${posts}">
+		            <form th:action="@{/hahaloss/addComment}" th:object="${commentForm}" class="form-horizontal" method="post">
+		                  <input type="hidden" name="id" th:value="${post.id}"/>
+						  <div class="form-group">
+		                      <textarea id="body" name="body" class="form-control" rows="4">
+		                      </textarea>
+		                  </div>
+		                  <div class="mt-4">
+		                      <button type="submit" class="btn btn-primary">
+		                          コメントする
+		                      </button>
+		                  </div>
+		            </form>
+	            </div>
+	        </div>
+	    </div>
+    </div>
+</div>
+</body>
+</html>

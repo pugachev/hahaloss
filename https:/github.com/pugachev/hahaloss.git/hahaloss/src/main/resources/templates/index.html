@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>母ロス BBS - 母ロス経験者が集まる掲示板</title>
+    <meta name="description" content="このサイトは、Laravelで掲示板を作成するチュートリアルのデモアプリです。"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous"/>
+</head>
+<body>
+<div layout:fragment="content" class="col-sm-12">
+<!--      <header class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <h1 class="h5 mb-0">
+                <a class="navbar-brand" href="https://laravel-bbs.hiroyuki90.com">
+                    母ロス BBS
+                </a>
+            </h1>
+        </div>
+    </header> -->
+
+    <div>
+      <div class="container mt-4">
+          <div class="alert alert-secondary mb-4">
+	          <h2 class="h5 alert-heading mb-3">このサイトについて</h2>
+	          <p>
+	              このサイトは母ロス経験者が集う場所です
+	          </p>
+	          <p>
+	              なんでもいいから語りましょうね
+	          </p>
+      	</div>
+        <div class="mb-4">
+            <a th:href="@{/hahaloss/createPostDisp/}" class="btn btn-primary">
+                投稿を新規作成する
+            </a>
+        </div>
+
+
+        <div class="card mb-4" th:each="post : ${posts}">
+            <div class="card-header" th:text="${post.title}">
+               タイトルがきます
+            </div>
+            <div class="card-body">
+                <p class="card-text" th:text="${post.body}">
+                    ボディがきます
+                </p>
+
+<!--                 <a class="card-link" href="https://laravel-bbs.hiroyuki90.com/posts/66">
+                    続きを読む
+                </a> -->
+
+                <form th:action="@{/hahaloss/commentsDisp}" method="post">
+                    <input class="btn btn-default" type="submit" name="form" value="続きを読む"/>
+                    <input type="hidden" name="id" th:value="${post.id}"/>
+                </form>
+            </div>
+            <div class="card-footer">
+                <span class="mr-2" th:text="${post.updated_at}">
+                    投稿日時 2018.12.28
+                </span>
+        	</div>
+        </div>
+<!--         <div class="d-flex justify-content-center mb-5">
+            <ul class="pagination" role="navigation">
+
+               <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; Previous"><span class="page-link" aria-hidden="true">&lsaquo;</span></li>
+               <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+	           <li class="page-item"><a class="page-link" href="https://laravel-bbs.hiroyuki90.com?page=2">2</a></li>
+	           <li class="page-item"><a class="page-link" href="https://laravel-bbs.hiroyuki90.com?page=3">3</a></li>
+	           <li class="page-item"><a class="page-link" href="https://laravel-bbs.hiroyuki90.com?page=4">4</a></li>
+	           <li class="page-item"><a class="page-link" href="https://laravel-bbs.hiroyuki90.com?page=5">5</a></li>
+               <li class="page-item"><a class="page-link" href="https://laravel-bbs.hiroyuki90.com?page=2" rel="next" aria-label="Next &raquo;">&rsaquo;</a></li>
+            </ul> -->
+        </div>
+    </div>
+    </div>
+</body>
+</html>
